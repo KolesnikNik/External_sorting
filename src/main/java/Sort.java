@@ -14,15 +14,21 @@ public class Sort {
                 int k = 0;
                 /** Записываем j строк в файл B */
                 while (j < num) {
-                    writerB.write(readerA.readLine() + "\n");
+                    String strB = readerA.readLine();
+                    if (strB == null) break;
+                    writerB.write(strB + "\n");
                     j++;
                     i++;
+
                 }
                 /** Записываем k строк в файл C */
                 while (k < num) {
-                    writerC.write(readerA.readLine() + "\n");
+                    String strC = readerA.readLine();
+                    if (strC == null) break;
+                    writerC.write(strC + "\n");
                     k++;
                     i++;
+
                 }
             }
         } catch (IOException ex) {
@@ -99,14 +105,18 @@ public class Sort {
                 int c = 0;
                 while (j < num * 2) // 1, 2, 4, 8
                 {
-                    if(strC == null && strB != null){
+
+                    if (strC == null && strB == null) {
+                        i++;
+                        break;
+                    } else if (strC == null) {
                         writerA.write(strB + "\n");
                         b++;
                         strB = readerB.readLine();
-                    }else if(strC != null && strB == null){
+                    } else if (strB == null) {
                         writerA.write(strC + "\n");
-                        b++;
-                        strB = readerB.readLine();
+                        c++;
+                        strC = readerC.readLine();
                     } else if (strB.compareToIgnoreCase(strC) < 0 && b < num) {
                         writerA.write(strB + "\n");
                         b++;
@@ -125,11 +135,17 @@ public class Sort {
                     } else if (strB.compareToIgnoreCase(strC) > 0 && !(c < num)) {
                         writerA.write(strB + "\n");
                         b++;
-                        strB = readerB.readLine() ;
+                        strB = readerB.readLine();
+                    } else if (strB.compareToIgnoreCase(strC) == 0) {
+                        writerA.write(strB + "\n");
+                        writerA.write(strC + "\n");
+                        b++;
+                        c++;
+                        strB = readerB.readLine();
+                        strC = readerC.readLine();
                     }
 
                     j++;
-                    i++;
                 }
             }
 
