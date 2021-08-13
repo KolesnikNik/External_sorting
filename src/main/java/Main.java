@@ -9,7 +9,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        GenerateRandom.generateFile(1000, 15);
+        GenerateRandom.generateFile(10, 15);
         Sort.sort("testFile.txt");
     }
 }

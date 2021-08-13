@@ -40,8 +40,9 @@ public class GenerateRandom {
             Random rnd = new Random(2);
             String str =null;
             for (int i = 0; i < count; i++) {
-                str = generateString(rnd.nextInt(length));
-                if(!str.equals("")) writer.write(str + "\n");
+                str = generateString(length);
+                //if(!str.equals("")) writer.write(str + "\n");
+                writer.write(str + "\n");
             }
 
         } catch (

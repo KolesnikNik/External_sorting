@@ -55,7 +55,13 @@ public class Sort {
             System.out.println(ex.getMessage());
         }
     }
-
+    public static int pow(int value, int powValue) {
+        if (powValue == 1) {
+            return value;
+        } else {
+            return value * pow(value, powValue - 1);
+        }
+    }
     /**
      * Сортировка
      */
@@ -79,28 +85,14 @@ public class Sort {
         /** Первый пробег сортировки слиянием */
         Sort.sortProbeg(num, count);
 
-        /** Снова делим на два файла, запись чередуем по 2 элемента */
-        num = 2;
-        Sort.preSort("fileA.txt", num, count);
+        for(int g = 1; g < 20; g++){
+            num = pow(2, g);
+            Sort.preSort("fileA.txt", num, count);
 
-        /** Второй пробег сортировки слиянием */
+            /** Четвертый пробег сортировки слиянием */
+            Sort.sortProbeg(num, count);
 
-        Sort.sortProbeg(num, count);
-
-        /** Снова делим на два файла, запись чередуем по 4 элемента */
-        num = 4;
-        Sort.preSort("fileA.txt", num, count);
-
-        /** Третий пробег сортировки слиянием */
-
-        Sort.sortProbeg(num, count);
-
-        /** Снова делим на два файла, запись чередуем по 8 элемента */
-        num = 8;
-        Sort.preSort("fileA.txt", num, count);
-
-        /** Четвертый пробег сортировки слиянием */
-        Sort.sortProbeg(num, count);
+        }
     }
 
     public static void sortProbeg(int num, int count) {
