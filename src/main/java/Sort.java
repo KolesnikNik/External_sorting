@@ -3,7 +3,7 @@ import java.io.*;
 /**
  * Класс внешней сортировки слиянием без использования сторонних инструментов.
  * Сложность алгоритма равна сложности сортировки слиянием n*log(n).
- *
+ * <p>
  * Принцип:
  * 1) Исходный файл разбивается на два равных по 1 элемету;
  * 2) Проводится сортировка слиянием по 1 элементу и следует  запись в новый общий файл А.
@@ -19,14 +19,18 @@ import java.io.*;
  */
 
 public class Sort {
+    /**
+     * Класс разделения файла на два файла B и С.
+     * @param fileName - обрабатываемыйй файл.
+     * @param num - количество элеметов в итерации.
+     * @param count - количество строк в обрабатываемом файле.
+     */
     public static void preSort(String fileName, int num, int count) {
-        /** Разобьем файл на два равных */
         try (BufferedReader readerA = new BufferedReader(
                 new InputStreamReader(
                         new FileInputStream(fileName)));
              FileWriter writerB = new FileWriter("fileB.txt", false);
              FileWriter writerC = new FileWriter("fileC.txt", false)) {
-
             for (int i = 0; i < count; ) {
                 int j = 0;
                 int k = 0;
@@ -37,7 +41,6 @@ public class Sort {
                     writerB.write(strB + "\n");
                     j++;
                     i++;
-
                 }
                 /** Записываем k строк в файл C */
                 while (k < num) {
@@ -46,7 +49,6 @@ public class Sort {
                     writerC.write(strC + "\n");
                     k++;
                     i++;
-
                 }
             }
         } catch (IOException ex) {
@@ -75,7 +77,7 @@ public class Sort {
         Sort.preSort(fileName, num, count);
 
         /** Первый пробег сортировки слиянием */
-        Sort.sortProbeg("fileA.txt", num, count);
+        Sort.sortProbeg(num, count);
 
         /** Снова делим на два файла, запись чередуем по 2 элемента */
         num = 2;
@@ -83,7 +85,7 @@ public class Sort {
 
         /** Второй пробег сортировки слиянием */
 
-        Sort.sortProbeg("fileA.txt", num, count);
+        Sort.sortProbeg(num, count);
 
         /** Снова делим на два файла, запись чередуем по 4 элемента */
         num = 4;
@@ -91,19 +93,19 @@ public class Sort {
 
         /** Третий пробег сортировки слиянием */
 
-        Sort.sortProbeg("fileA.txt", num, count);
+        Sort.sortProbeg(num, count);
 
         /** Снова делим на два файла, запись чередуем по 8 элемента */
         num = 8;
         Sort.preSort("fileA.txt", num, count);
 
         /** Четвертый пробег сортировки слиянием */
-        Sort.sortProbeg("fileA.txt", num, count);
+        Sort.sortProbeg(num, count);
 
 
     }
 
-    public static void sortProbeg(String fileName, int num, int count) {
+    public static void sortProbeg(int num, int count) {
         try (BufferedReader readerB = new BufferedReader(
                 new InputStreamReader(new FileInputStream("fileC.txt")));
              BufferedReader readerC = new BufferedReader(
