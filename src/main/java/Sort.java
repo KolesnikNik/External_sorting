@@ -6,21 +6,21 @@ public class Sort {
         try (BufferedReader readerA = new BufferedReader(
                 new InputStreamReader(
                         new FileInputStream(fileName)));
-             FileWriter writerB = new FileWriter("fileB", false);
-             FileWriter writerC = new FileWriter("fileC", false)) {
+             FileWriter writerB = new FileWriter("fileB.txt", false);
+             FileWriter writerC = new FileWriter("fileC.txt", false)) {
 
             for (int i = 0; i < count; ) {
                 int j = 0;
                 int k = 0;
                 /** Записываем j строк в файл B */
                 while (j < num) {
-                    writerB.write(readerA.readLine());
+                    writerB.write(readerA.readLine() + "\n");
                     j++;
                     i++;
                 }
                 /** Записываем k строк в файл C */
                 while (k < num) {
-                    writerC.write(readerA.readLine());
+                    writerC.write(readerA.readLine() + "\n");
                     k++;
                     i++;
                 }
@@ -54,40 +54,41 @@ public class Sort {
         Sort.preSort(fileName, num, count);
 
         /** Первый пробег */
-        Sort.sortProbeg("fileA", num, count);
+        Sort.sortProbeg("fileA.txt", num, count);
 
         /** Снова делим на два файла, запись чередуем по 2 элемента */
         num = 2;
-        Sort.preSort("fileA", num, count);
+        Sort.preSort("fileA.txt", num, count);
 
         /** Второй пробег */
 
-        Sort.sortProbeg("fileA", num, count);
+        Sort.sortProbeg("fileA.txt", num, count);
 
         /** Снова делим на два файла, запись чередуем по 4 элемента */
         num = 4;
-        Sort.preSort("fileA", num, count);
+        Sort.preSort("fileA.txt", num, count);
 
         /** Третий пробег */
 
-        Sort.sortProbeg("fileA", num, count);
+        Sort.sortProbeg("fileA.txt", num, count);
 
         /** Снова делим на два файла, запись чередуем по 8 элемента */
         num = 8;
-        Sort.preSort("fileA", num, count);
+        Sort.preSort("fileA.txt", num, count);
 
         /** Четвертый пробег */
-        Sort.sortProbeg("fileA", num, count);
+        Sort.sortProbeg("fileA.txt", num, count);
+
 
     }
 
     public static void sortProbeg(String fileName, int num, int count) {
         try (BufferedReader readerB = new BufferedReader(
-                new InputStreamReader(new FileInputStream("fileA")));
+                new InputStreamReader(new FileInputStream("fileC.txt")));
              BufferedReader readerC = new BufferedReader(
                      new InputStreamReader(
-                             new FileInputStream("fileB")));
-             FileWriter writerA = new FileWriter(fileName, false)) {
+                             new FileInputStream("fileB.txt")));
+             FileWriter writerA = new FileWriter("fileA.txt", false)) {
 
             String strB = readerB.readLine();
             String strC = readerC.readLine();
@@ -98,34 +99,44 @@ public class Sort {
                 int c = 0;
                 while (j < num * 2) // 1, 2, 4, 8
                 {
+                    if(strC == null && strB != null){
+                        writerA.write(strB + "\n");
+                        b++;
+                        strB = readerB.readLine();
+                    }else if(strC != null && strB == null){
+                        writerA.write(strC + "\n");
+                        b++;
+                        strB = readerB.readLine();
+                    } else if (strB.compareToIgnoreCase(strC) < 0 && b < num) {
+                        writerA.write(strB + "\n");
+                        b++;
+                        strB = readerB.readLine();
 
-                    if (strB.compareToIgnoreCase(strC) < 0 && b < num) {
-                        writerA.write("fileB");
-                        strB = readerB.readLine();
-                        //break;
-                        b++;
                     } else if (strB.compareToIgnoreCase(strC) < 0 && !(b < num)) {
-                        writerA.write("fileC");
-                        strC = readerC.readLine();
+                        writerA.write(strC + "\n");
                         c++;
+                        strC = readerC.readLine();
+
                     } else if (strB.compareToIgnoreCase(strC) > 0 && c < num) {
-                        writerA.write("fileC");
-                        strC = readerC.readLine();
+                        writerA.write(strC + "\n");
                         c++;
+                        strC = readerC.readLine();
+
                     } else if (strB.compareToIgnoreCase(strC) > 0 && !(c < num)) {
-                        writerA.write("fileB");
-                        strB = readerB.readLine();
+                        writerA.write(strB + "\n");
                         b++;
+                        strB = readerB.readLine() ;
                     }
+
                     j++;
                     i++;
                 }
             }
 
             /** Удаляем файлы B и C для очистки */
-            File fileB = new File("fileB");
+            File fileB = new File("fileB.txt");
             fileB.delete();
-            File fileC = new File("fileB");
+            File fileC = new File("fileB.txt");
             fileC.delete();
 
         } catch (IOException ex) {
