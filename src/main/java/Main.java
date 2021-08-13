@@ -5,8 +5,9 @@
  */
 
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("fghhhh456".compareToIgnoreCase("fghhhh456"));
+        GenerateRandom.generateFile(10, 10);
         Sort.sort("test2.txt");
     }
 }
