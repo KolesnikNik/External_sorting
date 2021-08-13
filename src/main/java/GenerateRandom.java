@@ -21,8 +21,6 @@ public class GenerateRandom {
 
         Random rnd = new Random();
 
-
-        char[] text = new char[length];
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
             sb.append(pool[rnd.nextInt(pool.length)]);
