@@ -21,9 +21,10 @@ import java.io.*;
 public class Sort {
     /**
      * Класс разделения файла на два файла B и С.
+     *
      * @param fileName - обрабатываемыйй файл.
-     * @param num - количество элеметов в итерации.
-     * @param count - количество строк в обрабатываемом файле.
+     * @param num      - количество элеметов в итерации.
+     * @param count    - количество строк в обрабатываемом файле.
      */
     public static void preSort(String fileName, int num, int count) {
         try (BufferedReader readerA = new BufferedReader(
@@ -55,6 +56,7 @@ public class Sort {
             System.out.println(ex.getMessage());
         }
     }
+
     public static int pow(int value, int powValue) {
         if (powValue == 1) {
             return value;
@@ -62,6 +64,7 @@ public class Sort {
             return value * pow(value, powValue - 1);
         }
     }
+
     /**
      * Сортировка
      */
@@ -85,11 +88,10 @@ public class Sort {
         /** Первый пробег сортировки слиянием */
         Sort.sortProbeg(num, count);
 
-        for(int g = 1; g < 20; g++){
+        /** Дальнейшая сортировка с увеличением записи до 2^n элементов */
+        for (int g = 1; g < 20; g++) {
             num = pow(2, g);
             Sort.preSort("fileA.txt", num, count);
-
-            /** Четвертый пробег сортировки слиянием */
             Sort.sortProbeg(num, count);
 
         }
