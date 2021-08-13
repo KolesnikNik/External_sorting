@@ -1,5 +1,23 @@
 import java.io.*;
 
+/**
+ * Класс внешней сортировки слиянием без использования сторонних инструментов.
+ * Сложность алгоритма равна сложности сортировки слиянием n*log(n).
+ *
+ * Принцип:
+ * 1) Исходный файл разбивается на два равных по 1 элемету;
+ * 2) Проводится сортировка слиянием по 1 элементу и следует  запись в новый общий файл А.
+ * 3) Файл А разбивается на два файла B и C по 2 элемента.
+ * 4) Проводится сортировка слиянием по 2 элементам и следует запись в файл А.
+ * 5) Файл А разбивается на два файла B и C по 4 элемента.
+ * 6) Проводится сортировка слиянием по 4 элементам и следует запись в файл А.
+ * 5) Файл А разбивается на два файла B и C по 8 элемента.
+ * 6) Проводится сортировка слиянием по 8 элементов и следует запись в файл А.
+ *
+ * @author N.S.Kolesnik
+ * @version 1.0
+ */
+
 public class Sort {
     public static void preSort(String fileName, int num, int count) {
         /** Разобьем файл на два равных */
@@ -34,9 +52,6 @@ public class Sort {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        /** Удаляем файл А для очистки */
-        File fileA = new File("fileA");
-        fileA.delete();
     }
 
     /**
@@ -59,14 +74,14 @@ public class Sort {
         int num = 1;
         Sort.preSort(fileName, num, count);
 
-        /** Первый пробег */
+        /** Первый пробег сортировки слиянием */
         Sort.sortProbeg("fileA.txt", num, count);
 
         /** Снова делим на два файла, запись чередуем по 2 элемента */
         num = 2;
         Sort.preSort("fileA.txt", num, count);
 
-        /** Второй пробег */
+        /** Второй пробег сортировки слиянием */
 
         Sort.sortProbeg("fileA.txt", num, count);
 
@@ -74,7 +89,7 @@ public class Sort {
         num = 4;
         Sort.preSort("fileA.txt", num, count);
 
-        /** Третий пробег */
+        /** Третий пробег сортировки слиянием */
 
         Sort.sortProbeg("fileA.txt", num, count);
 
@@ -82,7 +97,7 @@ public class Sort {
         num = 8;
         Sort.preSort("fileA.txt", num, count);
 
-        /** Четвертый пробег */
+        /** Четвертый пробег сортировки слиянием */
         Sort.sortProbeg("fileA.txt", num, count);
 
 
@@ -100,12 +115,12 @@ public class Sort {
             String strC = readerC.readLine();
             for (int i = 0; i < count; ) {
                 int j = 0;
+
                 /** Записываем строки в файл А */
                 int b = 0;
                 int c = 0;
                 while (j < num * 2) // 1, 2, 4, 8
                 {
-
                     if (strC == null && strB == null) {
                         i++;
                         break;
@@ -121,17 +136,14 @@ public class Sort {
                         writerA.write(strB + "\n");
                         b++;
                         strB = readerB.readLine();
-
                     } else if (strB.compareToIgnoreCase(strC) < 0 && !(b < num)) {
                         writerA.write(strC + "\n");
                         c++;
                         strC = readerC.readLine();
-
                     } else if (strB.compareToIgnoreCase(strC) > 0 && c < num) {
                         writerA.write(strC + "\n");
                         c++;
                         strC = readerC.readLine();
-
                     } else if (strB.compareToIgnoreCase(strC) > 0 && !(c < num)) {
                         writerA.write(strB + "\n");
                         b++;
@@ -144,16 +156,9 @@ public class Sort {
                         strB = readerB.readLine();
                         strC = readerC.readLine();
                     }
-
                     j++;
                 }
             }
-
-            /** Удаляем файлы B и C для очистки */
-            File fileB = new File("fileB.txt");
-            fileB.delete();
-            File fileC = new File("fileB.txt");
-            fileC.delete();
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
