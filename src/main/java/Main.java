@@ -7,7 +7,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        GenerateRandom.generateFile(10, 10);
+        GenerateRandom.generateFile(100, 10);
         Sort.sort("test2.txt");
     }
 }

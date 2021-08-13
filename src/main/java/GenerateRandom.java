@@ -11,6 +11,7 @@ public class GenerateRandom {
      * Метод, генерирующий случайную строку заданной длины.
      * @param length - длина строки.
      */
+
     public static String generateString(int length) {
         final char[] pool = {
                 'a', 'b', 'c', 'd', 'e', 'f', 'g',
@@ -20,12 +21,14 @@ public class GenerateRandom {
 
         Random rnd = new Random();
 
-        char[] text = new char[length];
 
+        char[] text = new char[length];
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            text[i] = pool.toString().charAt(rnd.nextInt(pool.toString().length()));
+            sb.append(pool[rnd.nextInt(pool.length)]);
         }
-        return new String(text);
+
+        return new String(sb);
     }
     /**
      * Метод, генерирующий файл с заданным количеством строк.
@@ -46,4 +49,5 @@ public class GenerateRandom {
 
         }
     }
+
 }
