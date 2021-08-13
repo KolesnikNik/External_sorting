@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Основной рабочий класс с точкой входа.
  * @author N.S.Kolesnik
@@ -7,7 +9,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        GenerateRandom.generateFile(100, 10);
-        Sort.sort("test2.txt");
+        GenerateRandom.generateFile(1000, 15);
+        Sort.sort("testFile.txt");
     }
 }

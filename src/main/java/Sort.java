@@ -101,8 +101,6 @@ public class Sort {
 
         /** Четвертый пробег сортировки слиянием */
         Sort.sortProbeg(num, count);
-
-
     }
 
     public static void sortProbeg(int num, int count) {

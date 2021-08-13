@@ -14,15 +14,16 @@ public class GenerateRandom {
 
     public static String generateString(int length) {
         final char[] pool = {
-                'a', 'b', 'c', 'd', 'e', 'f', 'g',
-                'h', 'i', 'j', 'k', 'l', 'm', 'n',
-                'o', 'p', 'q', 'r', 's', 't', 'u',
-                'v', 'w', 'x', 'y', 'z'};
+                'a','b','c','d','e','f','g',
+                'h','i','j','k','l','m','n',
+                'o','p','q','r','s','t','u',
+                'v','w','x','y','z'};
 
         Random rnd = new Random();
+        int count = length;
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < count; i++) {
             sb.append(pool[rnd.nextInt(pool.length)]);
         }
 
@@ -36,9 +37,11 @@ public class GenerateRandom {
     public static void generateFile(int count, int length) {
         try (
                 FileWriter writer = new FileWriter("testFile.txt", false)) {
+            Random rnd = new Random(2);
+            String str =null;
             for (int i = 0; i < count; i++) {
-
-                writer.write(generateString(length) + "\n");
+                str = generateString(rnd.nextInt(length));
+                if(!str.equals("")) writer.write(str + "\n");
             }
 
         } catch (
